@@ -11,7 +11,7 @@ My starter pack for web-development
 5. *Blazy* for [lazy loading images](http://dinbror.dk/blazy/examples/?ref=github )
 6. *Imagelightbox* for [popup images](https://github.com/marekdedic/imagelightbox) in adaptive full screen 
 7. *inputmask* for [form inputs](https://github.com/RobinHerbots/Inputmask)
-8. *Panini* for build html
+8. *pug* for build html
 9. *Rigger* for concat js
 
 ### Usage
