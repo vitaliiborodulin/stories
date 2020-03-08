@@ -4,7 +4,7 @@ const {src, dest, watch, task, series, parallel} = require("gulp");
 const panini = require("panini");
 
 const autoprefixer = require('gulp-autoprefixer');
-const preprocessor = require('gulp-less'); 
+const preprocessor = require('gulp-less');
 const cleanCss = require('gulp-clean-css');
 const gcmq = require('gulp-group-css-media-queries');
 const sourcemaps = require('gulp-sourcemaps');
@@ -25,7 +25,7 @@ const imageminPngquant = require('imagemin-pngquant');
 const plumber = require("gulp-plumber");
 
 const ghPages = require('gh-pages');
-// const path = require('path');
+const pathDeploy = require('path');
 
 const isDev = process.argv.includes('--dev');
 const isProd = !isDev;
@@ -146,7 +146,7 @@ function grid(done) {
 }
 
 function deploy(cb) {
-    ghPages.publish(path.join(process.cwd(), './build'), cb);
+    ghPages.publish(pathDeploy.join(process.cwd(), './build'), cb);
 }
 
 /* Exports Tasks */
