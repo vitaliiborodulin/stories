@@ -32,6 +32,7 @@
   "dependencies": {
     "blazy": "^1.8.2",
     "imagelightbox": "^1.0.2",
-    "inputmask": "^5.0.3"
+    "inputmask": "^5.0.3",
+    "slick-carousel": "^1.8.1"
   }
 }
