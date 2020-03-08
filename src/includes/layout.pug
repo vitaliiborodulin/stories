@@ -1,0 +1,29 @@
+- var keywords = 'key, words'
+- var descr = 'default description'
+- var title = 'Default Title'
+block variables
+
+html
+	head
+		meta(charset="UTF-8")
+		meta(name="viewport" content="width=device-width, initial-scale=1.0")
+		meta(name="keywords" content=keywords)
+		meta(name='description' content=descr)
+
+		link(rel="shortcut icon" href="img/favicon.png" type="image/x-icon")
+		link(rel="stylesheet" href="css/styles.css")
+
+		title=title
+	body
+		header.header
+			.wrapper
+				include header
+		main.main
+			.wrapper
+				block content
+		footer.footer
+			.wrapper
+				include footer
+
+		script(src="https://code.jquery.com/jquery-3.4.1.min.js")
+		script(src="js/script.js")
