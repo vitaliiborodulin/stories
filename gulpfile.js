@@ -1,7 +1,5 @@
 const {src, dest, watch, task, series, parallel} = require("gulp");
 
-const panini = require("panini");
-
 const autoprefixer = require('gulp-autoprefixer');
 const preprocessor = require('gulp-less');
 const cleanCss = require('gulp-clean-css');
@@ -58,16 +56,9 @@ var path = {
 
 /* Tasks */
 function html() {
-	panini.refresh();
 	return src(path.src.html, { base: "src/" })
 	.pipe(plumber())
-	.pipe(panini({
-		root: 'src/',
-		layouts: 'src/tpl/layouts/',
-		partials: 'src/tpl/partials/',
-		helpers: 'src/tpl/helpers/',
-		data: 'src/tpl/data/'
-	}))
+	.pipe(pug())
 	.pipe(dest(path.build.html))
 	.pipe(gulpif(isSync, browserSync.stream()))
 }
@@ -159,8 +150,8 @@ function deploy(cb) {
 }
 
 /* Exports Tasks */
-// exports.clean = clean;
-// exports.html = html;
+exports.clean = clean;
+exports.html = html;
 // exports.css = styles;
 // exports.js = js;
 // exports.img = img;
