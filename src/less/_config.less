@@ -3,25 +3,43 @@
 @accent:     orange; // Accent Color
 @fontsize:   16px; // Body Font Size
 @textcolor:  #333; // Text Color
-@mainfamily: 'Cuprum', sans-serif; // Main Font Family
+@mainfamily: 'Gotham Pro', sans-serif; // Main Font Family
 
 
 // FONTS LOAD SECTION
 
-// .font(@f-name, @f-style, @f-weight, @f-url) {
-// 	@font-face {
-// 		font-family: @f-name;
-// 		font-style: @f-style;
-// 		font-weight: @f-weight;
-// 		src: url(@f-url) format('woff2');
-// 	}
-// }
+@font-face {
+	font-family: 'Gotham Pro';
+	font-weight: 400;
+	font-display: swap;
+	font-style: normal;
+	src: url('../fonts/GothamPro.eot');
+	src: url('../fonts/GothamPro.eot?#iefix') format('embedded-opentype'),
+	url('../fonts/GothamPro.woff') format('woff'),
+	url('../fonts/GothamPro.ttf') format('truetype');
+}
 
+@font-face {
+	font-family: 'Gotham Pro';
+	font-weight: 700;
+	font-display: swap;
+	font-style: normal;
+	src: url('../fonts/GothamPro-Bold.eot');
+	src: url('../fonts/GothamPro-Bold.eot?#iefix') format('embedded-opentype'),
+	url('../fonts/GothamPro-Bold.woff') format('woff'),
+	url('../fonts/GothamPro-Bold.ttf') format('truetype');
+}
 
-// .font('roboto', normal, 400, '../fonts/roboto-regular-webfont.woff2');
-// .font('roboto', italic, 400, '../fonts/roboto-italic-webfont.woff2');
-// .font('roboto', normal, 700, '../fonts/roboto-bold-webfont.woff2');
-// .font('roboto', italic, 700, '../fonts/roboto-bolditalic-webfont.woff2');
+@font-face {
+	font-family: 'Gotham Pro';
+	font-weight: 900;
+	font-display: swap;
+	font-style: normal;
+	src: url('../fonts/GothamPro-Black.eot');
+	src: url('../fonts/GothamPro-Black.eot?#iefix') format('embedded-opentype'),
+	url('../fonts/GothamPro-Black.woff') format('woff'),
+	url('../fonts/GothamPro-Black.ttf') format('truetype');
+}
 
 
 // GENERAL DOCUMENT STYLES
@@ -57,6 +75,7 @@ body {
 	position: relative;
 	line-height: 1.65;
 	font-family: @mainfamily;
+	font-weight: 400;
 	overflow-x: hidden;
 	color: @textcolor;
 }
@@ -65,3 +84,5 @@ body {
 
 @import "smart-grid.less";
 @import (less) '../../node_modules/imagelightbox/dist/imagelightbox.min.css';
+// @import  '../../node_modules/slick-carousel/slick/slick.less';
+// @import  '../../node_modules/slick-carousel/slick/slick-theme.less';
