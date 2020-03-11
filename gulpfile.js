@@ -21,8 +21,6 @@ const imagemin = require('gulp-imagemin');
 const imageminJpegRecompress = require('imagemin-jpeg-recompress');
 const imageminPngquant = require('imagemin-pngquant');
 
-const plumber = require("gulp-plumber");
-
 const ghPages = require('gh-pages');
 const pathDeploy = require('path');
 
@@ -75,7 +73,6 @@ function styles() {
 	return src(path.src.css, {
 			base: "src/less/"
 		})
-		.pipe(plumber())
 		.pipe(gulpif(isDev, sourcemaps.init()))
 		.pipe(preprocessor())
 		.pipe(gcmq())
@@ -94,7 +91,6 @@ function js() {
 	return src(path.src.js, {
 			base: './src/js/'
 		})
-		.pipe(plumber())
 		.pipe(rigger())
 		.pipe(gulpif(isDev, sourcemaps.init()))
 		.pipe(concat('script.js'))
