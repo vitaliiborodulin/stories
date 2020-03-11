@@ -15,7 +15,7 @@ const smartgrid = require('smart-grid');
 const concat = require('gulp-concat');
 
 const rigger = require("gulp-rigger");
-const uglify = require('gulp-uglify');
+const uglify = require('gulp-uglify-es').default;
 
 const imagemin = require('gulp-imagemin');
 const imageminJpegRecompress = require('imagemin-jpeg-recompress');
@@ -80,8 +80,7 @@ function styles() {
 		.pipe(preprocessor())
 		.pipe(gcmq())
 		.pipe(gulpif(isProd, autoprefixer({
-			overrideBrowserslist: ['last 8 versions'],
-			cascade: false
+			overrideBrowserslist: ['last 10 versions'],
 		})))
 		.pipe(gulpif(isProd, cleanCss({
 			level: 2
