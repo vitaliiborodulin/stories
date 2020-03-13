@@ -1,6 +1,6 @@
 const { src, dest, watch, task, series,	parallel} = require("gulp");
 
-const pug = require('gulp-pug');
+const fileinclude = require('gulp-file-include');
 
 const autoprefixer = require('gulp-autoprefixer');
 const preprocessor = require('gulp-less');
@@ -31,7 +31,7 @@ const isSync = process.argv.includes('--sync');
 /* Paths */
 var path = {
 	src: {
-		html: "src/*.pug",
+		html: "src/*.html",
 		js: "src/js/*.js",
 		css: "src/less/styles.less",
 		img: "src/img/**/*.{jpg,png,svg,gif,ico,webmanifest,xml}",
@@ -45,7 +45,7 @@ var path = {
 		fonts: "build/fonts/"
 	},
 	watch: {
-		html: "src/**/*.pug",
+		html: "src/**/*.html",
 		js: "src/js/**/*.js",
 		css: "src/less/**/*.less",
 		img: "src/img/**/*.{jpg,png,svg,gif,ico,webmanifest,xml}",
@@ -59,12 +59,11 @@ function html() {
 	return src(path.src.html, {
 			base: "src/"
 		})
-		.pipe(gulpif(isDev, pug({
-			pretty: '\t'
-		})))
-		.pipe(gulpif(isProd, pug({
-
-		})))
+		.pipe(fileinclude({
+			prefix: '@@',
+			basepath: '@file',
+			indent: true,
+		  }))
 		.pipe(dest(path.build.html))
 		.pipe(gulpif(isSync, browserSync.stream()))
 }
@@ -91,7 +90,12 @@ function js() {
 	return src(path.src.js, {
 			base: './src/js/'
 		})
-		.pipe(rigger())
+		// .pipe(rigger())
+		.pipe(fileinclude({
+			prefix: '@@',
+			basepath: '@file',
+			indent: true,
+		  }))
 		.pipe(gulpif(isDev, sourcemaps.init()))
 		.pipe(concat('script.js'))
 		.pipe(gulpif(isProd, uglify({
@@ -160,8 +164,8 @@ function deploy(cb) {
 }
 
 /* Exports Tasks */
-// exports.clean = clean;
-// exports.html = html;
+exports.clean = clean;
+exports.html = html;
 // exports.css = styles;
 // exports.js = js;
 // exports.img = img;
