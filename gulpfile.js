@@ -1,4 +1,10 @@
+'use strict';
+
+// Подключения зависимостей
 const { src, dest, watch, task, series,	parallel} = require("gulp");
+
+const plumber = require('gulp-plumber');
+const notify = require('gulp-notify');
 
 const fileinclude = require('gulp-file-include');
 
@@ -55,10 +61,20 @@ var path = {
 }
 
 /* Tasks */
+
+// Сборка HTML
 function html() {
-	return src(path.src.html, {
-			base: "src/"
-		})
+	console.log('---------- сборка HTML');
+	return src(path.src.html)
+		.pipe(plumber({
+			errorHandler: function(err) {
+			notify.onError({
+				title: 'HTML compilation error',
+				message: err.message
+			})(err);
+			this.emit('end');
+			}
+		}))
 		.pipe(fileinclude({
 			prefix: '@@',
 			basepath: '@file',
@@ -68,10 +84,19 @@ function html() {
 		.pipe(gulpif(isSync, browserSync.stream()))
 }
 
+// Компиляция стилей
 function styles() {
-	return src(path.src.css, {
-			base: "src/less/"
-		})
+	console.log('---------- Компиляция стилей');
+	return src(path.src.css)
+		.pipe(plumber({
+			errorHandler: function(err) {
+			notify.onError({
+				title: 'Styles compilation error',
+				message: err.message
+			})(err);
+			this.emit('end');
+			}
+		}))
 		.pipe(gulpif(isDev, sourcemaps.init()))
 		.pipe(preprocessor())
 		.pipe(gcmq())
@@ -86,16 +111,22 @@ function styles() {
 		.pipe(gulpif(isSync, browserSync.stream()))
 }
 
+// Конкатенация и углификация Javascript
 function js() {
+	console.log('---------- Обработка JS');
 	return src(path.src.js, {
 			base: './src/js/'
 		})
-		// .pipe(rigger())
-		.pipe(fileinclude({
-			prefix: '@@',
-			basepath: '@file',
-			indent: true,
-		  }))
+		.pipe(plumber({
+			errorHandler: function(err) {
+			  notify.onError({
+				title: 'Javascript error',
+				message: err.message
+			  })(err);
+			  this.emit('end');
+			}
+		}))
+		.pipe(rigger())
 		.pipe(gulpif(isDev, sourcemaps.init()))
 		.pipe(concat('script.js'))
 		.pipe(gulpif(isProd, uglify({
@@ -106,7 +137,9 @@ function js() {
 		.pipe(gulpif(isSync, browserSync.stream()))
 }
 
+// Копирование изображений
 function img() {
+	console.log('---------- Копирование изображений');
 	return src(path.src.img)
 		.pipe(gulpif(isProd, imagemin([
 			imageminJpegRecompress({
@@ -122,24 +155,29 @@ function img() {
 		.pipe(gulpif(isSync, browserSync.stream()))
 }
 
+// Копирование шрифтов
 function fonts() {
+	console.log('---------- Копирование шрифтов');
 	return src(path.src.fonts)
 		.pipe(dest(path.build.fonts))
 		.pipe(gulpif(isSync, browserSync.stream()))
 }
 
+// Очистка папки сборки
 function clean() {
+	console.log('---------- Очистка папки сборки');
 	return del(path.clean);
 }
 
+// Локальный сервер, слежение
 function watchFiles() {
 	if (isSync) {
 		browserSync.init({
 			server: {
-				baseDir: './build/',
-				notify: false,
-				// online: false, // Work offline without internet connection
-			}
+				baseDir: './build/'
+			},
+			open: false
+			// online: false, // Work offline without internet connection
 		})
 	}
 
@@ -151,7 +189,9 @@ function watchFiles() {
 	watch('./smartgrid.js', grid);
 }
 
+// Перестроение сетки
 function grid(done) {
+	console.log('---------- Перестроение сетки');
 	delete require.cache[require.resolve('./smartgrid.js')];
 
 	let settings = require('./smartgrid.js');
@@ -159,7 +199,9 @@ function grid(done) {
 	done();
 }
 
+// Отправка в GH pages (ветку gh-pages репозитория)
 function deploy(cb) {
+	console.log('---------- Публикация содержимого ./build/ на GH pages');
 	ghPages.publish(pathDeploy.join(process.cwd(), './build'), cb);
 }
 
@@ -167,7 +209,7 @@ function deploy(cb) {
 exports.clean = clean;
 exports.html = html;
 // exports.css = styles;
-// exports.js = js;
+exports.js = js;
 // exports.img = img;
 // exports.fonts = fonts;
 // exports.watch = watchFiles;
