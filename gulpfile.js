@@ -1,6 +1,6 @@
-const {src, dest, watch, task, series, parallel} = require("gulp");
+const { src, dest, watch, task, series,	parallel} = require("gulp");
 
-const panini = require("panini");
+const pug = require('gulp-pug');
 
 const autoprefixer = require('gulp-autoprefixer');
 const preprocessor = require('gulp-less');
@@ -15,13 +15,11 @@ const smartgrid = require('smart-grid');
 const concat = require('gulp-concat');
 
 const rigger = require("gulp-rigger");
-const uglify = require('gulp-uglify');
+const uglify = require('gulp-uglify-es').default;
 
 const imagemin = require('gulp-imagemin');
 const imageminJpegRecompress = require('imagemin-jpeg-recompress');
 const imageminPngquant = require('imagemin-pngquant');
-
-const plumber = require("gulp-plumber");
 
 const ghPages = require('gh-pages');
 const pathDeploy = require('path');
@@ -33,7 +31,7 @@ const isSync = process.argv.includes('--sync');
 /* Paths */
 var path = {
 	src: {
-		html: "src/*.html",
+		html: "src/*.pug",
 		js: "src/js/*.js",
 		css: "src/less/styles.less",
 		img: "src/img/**/*.{jpg,png,svg,gif,ico,webmanifest,xml}",
@@ -47,7 +45,7 @@ var path = {
 		fonts: "build/fonts/"
 	},
 	watch: {
-		html: "src/**/*.html",
+		html: "src/**/*.pug",
 		js: "src/js/**/*.js",
 		css: "src/less/**/*.less",
 		img: "src/img/**/*.{jpg,png,svg,gif,ico,webmanifest,xml}",
@@ -58,69 +56,72 @@ var path = {
 
 /* Tasks */
 function html() {
-	panini.refresh();
-	return src(path.src.html, { base: "src/" })
-	.pipe(plumber())
-	.pipe(panini({
-		root: 'src/',
-		layouts: 'src/tpl/layouts/',
-		partials: 'src/tpl/partials/',
-		helpers: 'src/tpl/helpers/',
-		data: 'src/tpl/data/'
-	}))
-	.pipe(dest(path.build.html))
-	.pipe(gulpif(isSync, browserSync.stream()))
+	return src(path.src.html, {
+			base: "src/"
+		})
+		.pipe(gulpif(isDev, pug({
+			pretty: '\t'
+		})))
+		.pipe(gulpif(isProd, pug({
+
+		})))
+		.pipe(dest(path.build.html))
+		.pipe(gulpif(isSync, browserSync.stream()))
 }
 
 function styles() {
-	return src(path.src.css, { base: "src/less/" })
-    .pipe(plumber())
-	.pipe(gulpif(isDev, sourcemaps.init()))
-	.pipe(preprocessor())
-	.pipe(gcmq())
-	.pipe(gulpif(isProd, autoprefixer({
-		overrideBrowserslist: ['last 8 versions'],
-		cascade: false
-	})))
-	.pipe(gulpif(isProd, cleanCss({
-		level: 2
-	})))
-	.pipe(gulpif(isDev, sourcemaps.write()))
-	.pipe(dest(path.build.css))
-	.pipe(gulpif(isSync, browserSync.stream()))
+	return src(path.src.css, {
+			base: "src/less/"
+		})
+		.pipe(gulpif(isDev, sourcemaps.init()))
+		.pipe(preprocessor())
+		.pipe(gcmq())
+		.pipe(gulpif(isProd, autoprefixer({
+			overrideBrowserslist: ['last 10 versions'],
+		})))
+		.pipe(gulpif(isProd, cleanCss({
+			level: 2
+		})))
+		.pipe(gulpif(isDev, sourcemaps.write()))
+		.pipe(dest(path.build.css))
+		.pipe(gulpif(isSync, browserSync.stream()))
 }
 
 function js() {
-	return src(path.src.js, {base: './src/js/'})
-	.pipe(plumber())
-	.pipe(rigger())
-	.pipe(gulpif(isDev, sourcemaps.init()))
-	.pipe(concat('script.js'))
-	.pipe(gulpif(isProd, uglify({
-		toplevel: true
-	})))
-	.pipe(gulpif(isDev, sourcemaps.write()))
-	.pipe(dest(path.build.js))
-	.pipe(gulpif(isSync, browserSync.stream()))
+	return src(path.src.js, {
+			base: './src/js/'
+		})
+		.pipe(rigger())
+		.pipe(gulpif(isDev, sourcemaps.init()))
+		.pipe(concat('script.js'))
+		.pipe(gulpif(isProd, uglify({
+			toplevel: true
+		})))
+		.pipe(gulpif(isDev, sourcemaps.write()))
+		.pipe(dest(path.build.js))
+		.pipe(gulpif(isSync, browserSync.stream()))
 }
 
 function img() {
 	return src(path.src.img)
-	.pipe(gulpif(isProd, imagemin([
-		imageminJpegRecompress({
-			progressive: true,
-			min: 70, max: 75
-		}),
-		imageminPngquant({quality: [0.7, 0.75]})
-	])))
-	.pipe(dest('./build/img'))
-	.pipe(gulpif(isSync, browserSync.stream()))
+		.pipe(gulpif(isProd, imagemin([
+			imageminJpegRecompress({
+				progressive: true,
+				min: 70,
+				max: 75
+			}),
+			imageminPngquant({
+				quality: [0.7, 0.75]
+			})
+		])))
+		.pipe(dest('./build/img'))
+		.pipe(gulpif(isSync, browserSync.stream()))
 }
 
 function fonts() {
 	return src(path.src.fonts)
-	.pipe(dest(path.build.fonts))
-	.pipe(gulpif(isSync, browserSync.stream()))
+		.pipe(dest(path.build.fonts))
+		.pipe(gulpif(isSync, browserSync.stream()))
 }
 
 function clean() {
@@ -155,7 +156,7 @@ function grid(done) {
 }
 
 function deploy(cb) {
-    ghPages.publish(pathDeploy.join(process.cwd(), './build'), cb);
+	ghPages.publish(pathDeploy.join(process.cwd(), './build'), cb);
 }
 
 /* Exports Tasks */
