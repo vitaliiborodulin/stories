@@ -1,88 +1,70 @@
 // USER VARIABLES SECTION
 
-@accent:     orange; // Accent Color
-@fontsize:   16px; // Body Font Size
-@textcolor:  #333; // Text Color
-@mainfamily: 'Gotham Pro', sans-serif; // Main Font Family
+@accent: #c32b83; // Accent Color
+@greencolor: #65bc54;
+@fontsize: 16px; // Body Font Size
+@textcolor: #333; // Text Color
+//@mainfamily: 'Helvetica Neue Cyr Roman', sans-serif; // Main Font Family
+@mainfamily: 'Times New Roman Bold', serif; // Main Font Family
 
 
 // FONTS LOAD SECTION
 
 @font-face {
-	font-family: 'Gotham Pro';
-	font-weight: 400;
-	font-display: swap;
-	font-style: normal;
-	src: url('../fonts/GothamPro.eot');
-	src: url('../fonts/GothamPro.eot?#iefix') format('embedded-opentype'),
-	url('../fonts/GothamPro.woff') format('woff'),
-	url('../fonts/GothamPro.ttf') format('truetype');
+  font-family: 'Helvetica Neue Cyr Roman';
+  src: url('../fonts/HelveticaNeueCyr-Roman.eot');
+  src: url('../fonts/HelveticaNeueCyr-Roman.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/HelveticaNeueCyr-Roman.woff') format('woff'),
+    url('../fonts/HelveticaNeueCyr-Roman.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
 }
 
 @font-face {
-	font-family: 'Gotham Pro';
-	font-weight: 700;
-	font-display: swap;
-	font-style: normal;
-	src: url('../fonts/GothamPro-Bold.eot');
-	src: url('../fonts/GothamPro-Bold.eot?#iefix') format('embedded-opentype'),
-	url('../fonts/GothamPro-Bold.woff') format('woff'),
-	url('../fonts/GothamPro-Bold.ttf') format('truetype');
-}
-
-@font-face {
-	font-family: 'Gotham Pro';
-	font-weight: 900;
-	font-display: swap;
-	font-style: normal;
-	src: url('../fonts/GothamPro-Black.eot');
-	src: url('../fonts/GothamPro-Black.eot?#iefix') format('embedded-opentype'),
-	url('../fonts/GothamPro-Black.woff') format('woff'),
-	url('../fonts/GothamPro-Black.ttf') format('truetype');
-}
-
+  font-family: 'Times New Roman Bold';
+  src: url('../fonts/TimesNewRomanPS-BoldMT.eot');
+  src: url('../fonts/TimesNewRomanPS-BoldMT.eot?#iefix') format('embedded-opentype'),
+  url('../fonts/TimesNewRomanPS-BoldMT.woff') format('woff'),
+  url('../fonts/TimesNewRomanPS-BoldMT.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  }
 
 // GENERAL DOCUMENT STYLES
 
 .reset();
 
-*, *::before, *::after {
-    box-sizing: border-box;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
 .wrapper {
-    .wrapper();
-}
-
-::placeholder {
-	color: #666;
+  .wrapper();
 }
 
 ::selection {
-	background-color: @accent;
-	color: #fff;
-}
-
-input, textarea {
-	outline: none;
-	&:focus:required:invalid { border-color: red }
-	&:required:valid { border-color: green }
+  background-color: @accent;
+  color: #fff;
 }
 
 body {
-	font-size: @fontsize;
-	min-width: 320px;
-	position: relative;
-	line-height: 1.65;
-	font-family: @mainfamily;
-	font-weight: 400;
-	overflow-x: hidden;
-	color: @textcolor;
+  margin: 0;
+  padding: 0;
+  font-size: @fontsize;
+  min-width: 320px;
+  position: relative;
+  line-height: 1.65;
+  font-family: @mainfamily;
+  font-weight: 400;
+  overflow-x: hidden;
+  background-color: #000;
+  color: @textcolor;
 }
 
 // IMPORT SECTION
 
 @import "smart-grid.less";
-@import (less) '../../node_modules/imagelightbox/dist/imagelightbox.min.css';
-// @import  '../../node_modules/slick-carousel/slick/slick.less';
-// @import  '../../node_modules/slick-carousel/slick/slick-theme.less';
+@import (less) '../../node_modules/owl.carousel/dist/assets/owl.carousel.min.css';
+@import (less) '../../node_modules/owl.carousel/dist/assets/owl.theme.default.min.css';

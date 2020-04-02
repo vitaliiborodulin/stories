@@ -2,26 +2,29 @@ module.exports = {
     columns: 12,
     offset: '24px',
     container: {
-        maxWidth: '960px',
+        maxWidth: '1280px',
         fields: '24px' // >= offset/2
     },
     breakPoints: {
-        // lg: {
-        //     width: '1000px',
-        // },
+        lg: {
+            width: '1000px',
+        },
         md: {
             width: '920px',
-            fields: '15px' 
+            fields: '15px'
         },
         sm: {
-            width: '620px'
+            width: '540px'
         },
         xs: {
             width: '480px'
         },
         xxs: {
-			width: '350px',
-        }
+			      width: '375px',
+        },
+        xxxs: {
+          width: '320px',
+      }
 	},
-	detailedCalc: true 
+	detailedCalc: true
 };

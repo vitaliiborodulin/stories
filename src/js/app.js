@@ -1,13 +1,15 @@
 //= ../../node_modules/jquery/dist/jquery.min.js
-//= ../../node_modules/inputmask/dist/jquery.inputmask.min.js
-//= ../../node_modules/imagelightbox/dist/imagelightbox.min.js
+//= ../../node_modules/owl.carousel/dist/owl.carousel.min.js
 
-$(function(){
+$(function () {
+  $('.owl-carousel').owlCarousel({
+    items: 1,
+    loop: false,
+    nav: true,
+    URLhashListener:true,
+    startPosition: 'URLHash'
+  });
 
-    //= components/inputmask.js
-    //= components/header-menu.js
-    //= components/imagelightbox.js
-
-    console.log(1);
-
+  $('.owl-dots button').filter(':last').hide();
+  // $('.owl-prev.disabled').
 });

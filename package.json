@@ -1,5 +1,5 @@
 {
-  "name": "smartgrid",
+  "name": "stories",
   "version": "1.0.0",
   "author": "Borodulin Vitalii",
   "main": "gulpfile.js",
@@ -31,8 +31,7 @@
     "smart-grid": "^2.1.2"
   },
   "dependencies": {
-    "imagelightbox": "^1.0.2",
-    "inputmask": "^5.0.3",
-    "jquery": "^3.4.1"
+    "jquery": "^3.4.1",
+    "owl.carousel": "^2.3.4"
   }
 }
