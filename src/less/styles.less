@@ -79,6 +79,30 @@
   }
 }
 
+.owl-card-5 {
+  .item {
+    &[data-hash="one"] {
+      background: #000 url(../img/dom_priemov-1.jpg) no-repeat center center scroll;
+    }
+
+    &[data-hash="two"] {
+      background: #000 url(../img/dom_priemov-2.jpg) no-repeat center center scroll;
+    }
+
+    &[data-hash="three"],
+    &[data-hash="last"] {
+      background: #000 url(../img/dom_priemov-3.jpg) no-repeat center center scroll;
+    }
+  }
+}
+
+.owl-card-last {
+  .item {
+      background: #000 url(../img/fin-slide.jpg) no-repeat center center scroll;
+    }
+
+}
+
 .owl-theme {
   .owl-dots {
     position: absolute;
@@ -182,6 +206,11 @@
         font-size: 14px;
         line-height: 17px;
       });
+
+      span {
+        font-weight: bold;
+        color: @accent;
+      }
   }
 
   &__adress {
@@ -243,6 +272,12 @@
       padding: 10px 15px;
     });
     // padding-bottom: 190px;
+
+    .owl-text__descr {
+      max-height: 170px;
+      overflow-y: auto;
+
+    }
   }
 }
 
@@ -290,20 +325,26 @@
   margin-right: auto;
 }
 
-.next-link {
+.next {
   display: flex;
   align-items: center;
-  justify-content: center;
-  width: 44px;
-  height: 44px;
-  border: 2px dashed @accent;
-  padding: 10px;
-  border-radius: 50%;
-  font-size: 18px;
   color: @accent;
-  text-decoration: none;
+  .next-link {
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border: 2px dashed @accent;
+    padding: 10px;
+    border-radius: 50%;
+    font-size: 18px;
+    color: @accent;
+    text-decoration: none;
 
-  .xxs(font-size, 14px);
+    .xxs(font-size, 14px);
+  }
 }
 
 // .carousel-item {
