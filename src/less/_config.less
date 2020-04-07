@@ -4,31 +4,12 @@
 @greencolor: #65bc54;
 @fontsize: 16px; // Body Font Size
 @textcolor: #333; // Text Color
-//@mainfamily: 'Helvetica Neue Cyr Roman', sans-serif; // Main Font Family
-@mainfamily: 'Times New Roman Bold', serif; // Main Font Family
+@mainfamily: 'Roboto', sans-serif; // Main Font Family
 
 
 // FONTS LOAD SECTION
 
-@font-face {
-  font-family: 'Helvetica Neue Cyr Roman';
-  src: url('../fonts/HelveticaNeueCyr-Roman.eot');
-  src: url('../fonts/HelveticaNeueCyr-Roman.eot?#iefix') format('embedded-opentype'),
-    url('../fonts/HelveticaNeueCyr-Roman.woff') format('woff'),
-    url('../fonts/HelveticaNeueCyr-Roman.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-}
 
-@font-face {
-  font-family: 'Times New Roman Bold';
-  src: url('../fonts/TimesNewRomanPS-BoldMT.eot');
-  src: url('../fonts/TimesNewRomanPS-BoldMT.eot?#iefix') format('embedded-opentype'),
-  url('../fonts/TimesNewRomanPS-BoldMT.woff') format('woff'),
-  url('../fonts/TimesNewRomanPS-BoldMT.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-  }
 
 // GENERAL DOCUMENT STYLES
 
@@ -57,10 +38,13 @@ body {
   position: relative;
   line-height: 1.65;
   font-family: @mainfamily;
-  font-weight: 400;
+  font-weight: 300;
   overflow-x: hidden;
   background-color: #000;
   color: @textcolor;
+  word-wrap: break-word;
+  // word-break: keep-all;
+  // hyphens: auto;
 }
 
 // IMPORT SECTION

@@ -5,9 +5,11 @@ $(function () {
   $('.owl-carousel').owlCarousel({
     items: 1,
     loop: false,
+    dots: false,
     nav: true,
     URLhashListener:true,
-    startPosition: 'URLHash'
+    startPosition: 'URLHash',
+    // animateOut: 'fadeOut'
   });
 
   $('.owl-dots button').filter(':last').hide();
