@@ -2,13 +2,29 @@
 
 @accent: #c32b83; // Accent Color
 @greencolor: #65bc54;
-@fontsize: 16px; // Body Font Size
+@grey: #444;
+// @fontsize: 16px; // Body Font Size
 @textcolor: #333; // Text Color
 @mainfamily: 'Roboto', sans-serif; // Main Font Family
 
 
-// FONTS LOAD SECTION
+// MIXINS
 
+// usage, x is the pixel size needed: .font-size(x);
+.font-size(@sizeValue) {
+  @remValue: @sizeValue / 16;
+  @pxValue: (@sizeValue);
+  font-size: ~"@{pxValue}px";
+  font-size: ~"@{remValue}rem";
+}
+
+// usage, x is the pixel size needed: .line-height(x);
+.line-height(@sizeValue) {
+  @remValue: @sizeValue / 16;
+  @pxValue: (@sizeValue);
+  line-height: ~"@{pxValue}px";
+  line-height: ~"@{remValue}rem";
+}
 
 
 // GENERAL DOCUMENT STYLES
@@ -31,16 +47,14 @@
 }
 
 body {
-  margin: 0;
-  padding: 0;
-  font-size: @fontsize;
+  // font-size: @fontsize;
   min-width: 320px;
   position: relative;
-  line-height: 1.65;
+  // line-height: 1.65;
   font-family: @mainfamily;
   font-weight: 300;
   overflow-x: hidden;
-  background-color: #000;
+  background-color: @grey;
   color: @textcolor;
   word-wrap: break-word;
   // word-break: keep-all;

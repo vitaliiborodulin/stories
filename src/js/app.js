@@ -12,6 +12,6 @@ $(function () {
     // animateOut: 'fadeOut'
   });
 
-  $('.owl-dots button').filter(':last').hide();
+  // $('.owl-dots button').filter(':last').hide();
   // $('.owl-prev.disabled').
 });
